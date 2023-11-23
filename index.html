@@ -14,16 +14,22 @@
     </script>
     <title>command copy</title>
     <style>
+        :root {
+            --main-bg-color: #ff4f90;
+            --copied-bg-color: #4dafff;
+        }
+
         .target {
             list-style-type: none;
         }
+
         .target::after {
             opacity: 0;
         }
 
         .target:hover::after {
             content: "クリックするとコピーされます";
-            background-color: #ff4f90;
+            background-color: var(--main-bg-color);
             color: #fff;
             border-radius: 4px;
 
@@ -37,9 +43,9 @@
             transition: .3s;
         }
 
-        .target.clicked::after {
+        .target.copied::after {
             content: "コピーされました";
-            background-color: #4dafff;
+            background-color: var(--copied-bg-color);
         }
 
         .target li {
@@ -51,12 +57,12 @@
         }
 
         .target li:hover {
-            background-color: #ff4f90;
+            background-color: var(--main-bg-color);
             color: #fff;
         }
 
-        .target.clicked li:hover {
-            background-color: #4dafff;
+        .target.copied li:hover {
+            background-color: var(--copied-bg-color);
         }
 
     </style>
@@ -105,13 +111,13 @@
                 selection.addRange(range);
 
                 document.execCommand("copy");
-                targets.classList.add("clicked");
+                targets.classList.add("copied");
 
                 selection.removeAllRanges();
             });
 
             target.addEventListener("mouseleave", () => {
-                targets.classList.remove("clicked");
+                targets.classList.remove("copied");
             });
         };
     </script>
