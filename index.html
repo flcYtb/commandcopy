@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NW2VTJY0ZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-NW2VTJY0ZS');
+    </script>
+    <title>command copy</title>
+    <style>
+        .target {
+            list-style-type: none;
+        }
+        .target::after {
+            opacity: 0;
+        }
+
+        .target:hover::after {
+            content: "クリックするとコピーされます";
+            background-color: #ff4f90;
+            color: #fff;
+            border-radius: 4px;
+
+            position: fixed;
+            top: 0;
+            right: 0;
+            font-size: 10px;
+            display: block;
+            padding: 0 8px;
+            opacity: 1;
+            transition: .3s;
+        }
+
+        .target.clicked::after {
+            content: "コピーされました";
+            background-color: #4dafff;
+        }
+
+        .target li {
+            background-color: transparent;
+            color: #000;
+            cursor: pointer;
+            padding-left: 4px;
+            border-radius: 4px;
+        }
+
+        .target li:hover {
+            background-color: #ff4f90;
+            color: #fff;
+        }
+
+        .target.clicked li:hover {
+            background-color: #4dafff;
+        }
+
+    </style>
+</head>
+
+<body>
+    <ul class="target" id="target">
+        <li>docker-compose exec php bash</li>
+        <li>npm run dev --host</li>
+        <li>npm run build</li>
+        <li>php artisan migrate:fresh --seed</li>
+        <li>php artisan migrate</li>
+        <li>php artisan migrate:rollback</li>
+        <li>php artisan make:model City -m</li>
+        <li>php artisan make:migration create_country_tournament_tables</li>
+        <li>php artisan tinker</li>
+        <li>echo Str::plural('book');</li>
+        <li>php artisan db:seed --class=OrdersSeeder</li>
+        <li>php artisan migrate:fresh --seed --seeder=UserSeeder</li>
+        <li>php artisan optimize:clear</li>
+        <li>php artisan debugbar:clear</li>
+        <li>rm -fr ●●●</li>
+        <li>git merge --allow-unrelated-histories ●●●</li>
+        <li>git fetch -p</li>
+        <li>make container-init</li>
+        <li>make container-remove</li>
+        <li>wsl.exe -l -v</li>
+        <li>php artisan make:migration add_group_and_position_to_users_table --table=users</li>
+        <li>php -r 'phpinfo();' | grep php.ini</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <script>
+        const range = document.createRange();
+        const selection = window.getSelection();
+        const targets = document.getElementById("target");
+
+        for (const target of targets.children) {
+            target.addEventListener("click", () => {
+                selection.removeAllRanges();
+
+                range.selectNodeContents(target);
+                selection.addRange(range);
+
+                document.execCommand("copy");
+                targets.classList.add("clicked");
+
+                selection.removeAllRanges();
+            });
+
+            target.addEventListener("mouseleave", () => {
+                targets.classList.remove("clicked");
+            });
+        };
+    </script>
+
+</body>
+
+</html>
